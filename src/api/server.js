@@ -8,6 +8,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const PORT = process.env.PORT || 3000; // Default to 3000 if PORT is not set
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = "https://github.com/jjwhite224/SpotBubbles.git"; // Ensure this matches frontend
