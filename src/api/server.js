@@ -10,7 +10,7 @@ app.use(express.json());
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = "http://localhost:3000/callback"; // Ensure this matches frontend
+const REDIRECT_URI = "https://github.com/jjwhite224/SpotBubbles.git"; // Ensure this matches frontend
 
 app.post("/exchange-token", async (req, res) => {
   const { authCode, codeVerifier } = req.body;
