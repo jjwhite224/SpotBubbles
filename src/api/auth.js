@@ -1,5 +1,6 @@
 const CLIENT_ID = "90e3a7713c3142d082781504fb981430"; // Your Client ID
-const REDIRECT_URI = " https://github.com/jjwhite224/SpotBubbles.git"; // Update this to match your app's URL
+const REDIRECT_URI = "https://jjwhite224.github.io/SpotBubbles/callback";
+ // Update this to match your app's URL
 const SCOPES = ["user-read-recently-played"]; // Add required scopes
 
 // Generates a random code verifier (for PKCE)
