@@ -1,0 +1,240 @@
+/* GENERAL STYLES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: "Inter", sans-serif;
+  background-color: #181818;
+  color: white;
+ 
+  text-align: center;
+  min-height: 100vh;
+}
+
+/* MAIN APP CONTAINER */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 100vh;
+  margin: auto;
+  padding-top: 50px; /* Ensures nothing is cropped */
+  position: relative;
+}
+
+/* HEADER */
+.App-header {
+  background: linear-gradient(135deg, #1e1e1e, #121212);
+  padding: 8px 15px; /* Less padding */
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 1000px;
+  text-align: center;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center; /* Ensures true centering */
+  align-items: center;
+  position: relative;
+  top: 0;
+  font-size: 1.6rem;
+}
+
+.App-header h1 {
+  font-size: 1.8rem; /* Slightly smaller */
+  margin: 0; /* Remove extra spacing */
+}
+
+
+/* BUTTONS */
+button {
+  margin: 8px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  background-color: #1db954; /* Spotify Green */
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  transition: background 0.3s ease-in-out, transform 0.1s ease-in-out;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  background-color: #17a44c;
+  transform: scale(1.05);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+button.active {
+  background-color: #1db954;
+  box-shadow: 0px 4px 10px rgba(29, 185, 84, 0.5);
+}
+
+/* CENTER BUTTONS */
+.toggle-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 15px auto;
+  max-width: 600px;
+  padding-top: 20px; /* Adds spacing at the top */
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding-top: 20px; /* Ensures search bar is not too close to the top */
+}
+
+.search-container input {
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  background: #282828;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  width: 250px;
+}
+
+.search-container input::placeholder {
+  color: #bbb;
+}
+
+/* SEARCH BAR */
+input[type="text"] {
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  width: 250px;
+  background: #282828;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+}
+
+input[type="text"]::placeholder {
+  color: #bbb;
+}
+
+/* CHART CONTAINER - FORCE CENTERING */
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* FORCE SVG TO CENTER */
+svg {
+  display: flex;
+  margin: auto;
+  background: linear-gradient(to bottom, #181818, #000);
+}
+
+/* SIDE PANEL */
+.side-panel {
+  position: fixed;
+  top: 50%;
+  right: -320px; /* Initially hidden */
+  transform: translateY(-50%);
+  width: 280px;
+  padding: 20px;
+  background: #121212;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  transition: right 0.3s ease-in-out;
+}
+
+.side-panel.active {
+  right: 20px; /* Slide into view */
+}
+
+.side-panel h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.side-panel img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.side-panel p {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.side-panel button {
+  margin-top: 15px;
+  padding: 8px 15px;
+  background: #1DB954;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.side-panel button:hover {
+  background: #16a34a;
+}
+
+/* PLAYER CONTROLS */
+.player-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.player-controls button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+  transition: opacity 0.2s;
+}
+
+.player-controls button:hover {
+  opacity: 0.7;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .App-header {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .side-panel {
+    width: 100%;
+    right: -100%;
+    height: 100vh;
+    top: 0;
+    transform: none;
+    border-radius: 0;
+  }
+
+  .side-panel.active {
+    right: 0;
+  }
+}

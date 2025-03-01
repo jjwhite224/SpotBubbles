@@ -1,0 +1,141 @@
+.side-panel {
+  position: fixed; /* Keeps it in place */
+  top: 50%;
+  right: 40px;
+  transform: translateY(-50%);
+  width: 300px;
+  padding: 20px;
+  background: #121212;
+  color: white;
+  border-radius: 12px;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.side-panel.active {
+  right: 40px;
+}
+
+.side-panel h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.side-panel img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.side-panel p {
+  font-size: 14px;
+  opacity: 0.85;
+  text-align: center;
+}
+
+.side-panel .player-controls {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+
+.side-panel button {
+  width: 100%;
+  padding: 8px;
+  background: #1db954;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.side-panel button:hover {
+  background: #16a34a;
+}
+
+.player-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.player-controls button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+  transition: opacity 0.2s;
+}
+
+.player-controls button:hover {
+  opacity: 0.7;
+}
+
+
+
+circle {
+  stroke-width: 2;
+  transition: all 0.2s ease-in-out;
+}
+
+circle:hover {
+  stroke: white;
+  stroke-width: 3;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+body {
+  font-family: "Inter", sans-serif;
+  color: white;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center; /* Ensures proper centering */
+  align-items: center;
+  width: 100%;
+  height: auto; /* Allow dynamic height */
+  margin: auto;
+  margin-top: 50px;
+  transition: width 0.3s ease-in-out; /* Smooth shrinking effect */
+}
+
+
+
+svg {
+  display: block;
+  margin: auto;
+  background: linear-gradient(to bottom, #181818, #000);
+  overflow: visible; /* Ensures no part of the chart gets hidden */
+}
+
+.side-panel-container {
+  position: relative;
+  width: 280px;
+}
+
+.chart-container.contracted {
+  width: calc(100% - 320px); /* Shrinks when panel is open */
+}
+
+.tooltip {
+  position: absolute;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 5px;
+  transition: opacity 0.2s ease-in-out;
+}
