@@ -1,5 +1,5 @@
 const CLIENT_ID = "90e3a7713c3142d082781504fb981430";
-const REDIRECT_URI = "http://localhost:3000";
+const REDIRECT_URI = " https://github.com/jjwhite224/SpotBubbles.git";
 const SCOPES = ["user-top-read",  "streaming", // Required for Web Playback SDK
     "user-read-email",
     "user-read-private",
