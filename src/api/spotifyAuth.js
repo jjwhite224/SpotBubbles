@@ -10,8 +10,9 @@ const TOKEN_EXPIRY_TIME = 3600 * 1000; // 1 hour in milliseconds
 export const getAuthUrl = () => {
     const authEndpoint = "https://accounts.spotify.com/authorize";
     return `${authEndpoint}?client_id=${CLIENT_ID}&response_type=token&redirect_uri=${encodeURIComponent(
-      REDIRECT_URI
+     'https://jjwhite224.github.io/SpotBubbles/callback'
     )}&scope=${SCOPES.join("%20")}&show_dialog=true`;
+    console.log('Generated Auth URL:', authUrl); // Log the URL being generated
   };
 // Extracts token from URL hash
 export const getAccessTokenFromUrl = () => {
