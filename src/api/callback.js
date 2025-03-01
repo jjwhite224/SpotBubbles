@@ -1,4 +1,4 @@
-const BACKEND_URL = "http://localhost:3001"; // Your backend server URL
+const BACKEND_URL = "https://spotbubbles.onrender.com"; // Your backend server URL
 
 const getAuthCodeFromUrl = () => {
   const params = new URLSearchParams(window.location.search);

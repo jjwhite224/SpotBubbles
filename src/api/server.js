@@ -8,9 +8,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const PORT = process.env.PORT || 3000; // Default to 3000 if PORT is not set
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = "http://localhost:3000/callback"; // Ensure this matches frontend
+const REDIRECT_URI = "https://jjwhite224.github.io/SpotBubbles/callback"; // Ensure this matches frontend
 
 app.post("/exchange-token", async (req, res) => {
   const { authCode, codeVerifier } = req.body;
@@ -62,4 +67,4 @@ app.post("/refresh-token", async (req, res) => {
   });
   
 
-app.listen(3001, () => console.log("Server running on http://localhost:3001"));
+
