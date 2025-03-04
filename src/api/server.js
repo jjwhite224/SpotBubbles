@@ -15,7 +15,7 @@ app.listen(PORT, () => {
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = "https://jjwhite224.github.io/SpotBubbles/callback"; // Ensure this matches frontend
+const REDIRECT_URI = "https://jjwhite224.github.io/SpotBubbles/"; // Ensure this matches frontend
 
 app.post("/exchange-token", async (req, res) => {
   const { authCode, codeVerifier } = req.body;

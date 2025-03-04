@@ -1,5 +1,5 @@
 const CLIENT_ID = "90e3a7713c3142d082781504fb981430";
-const REDIRECT_URI = "https://jjwhite224.github.io/SpotBubbles/callback";
+const REDIRECT_URI = "https://jjwhite224.github.io/SpotBubbles/";
 const SCOPES = ["user-top-read",  "streaming", // Required for Web Playback SDK
     "user-read-email",
     "user-read-private",
