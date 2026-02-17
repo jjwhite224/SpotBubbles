@@ -54,3 +54,4 @@ export const getAccessToken = () => {
 
 // Call on page load to check token status
 storeAccessToken();
+

@@ -36,3 +36,5 @@ export const redirectToSpotifyAuth = async () => {
 
   window.location.href = authUrl; // Redirect to Spotify login
 };
+
+
