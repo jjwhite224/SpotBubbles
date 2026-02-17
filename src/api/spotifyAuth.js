@@ -1,4 +1,4 @@
-const CLIENT_ID = "90e3a7713c3142d082781504fb981430";
+const CLIENT_ID = "2892203726614a98b52e8fd501fb5387";
 const REDIRECT_URI = "https://jjwhite224.github.io/SpotBubbles/";
 const SCOPES = ["user-top-read",  "streaming", // Required for Web Playback SDK
     "user-read-email",
@@ -10,7 +10,7 @@ const TOKEN_EXPIRY_TIME = 3600 * 1000; // 1 hour in milliseconds
 export const getAuthUrl = () => {
     const authEndpoint = "https://accounts.spotify.com/authorize";
     return `${authEndpoint}?client_id=${CLIENT_ID}&response_type=token&redirect_uri=${encodeURIComponent(
-     'https://jjwhite224.github.io/SpotBubbles/callback'
+     REDIRECT_URI
     )}&scope=${SCOPES.join("%20")}&show_dialog=true`;
     // Log the URL being generated
   };

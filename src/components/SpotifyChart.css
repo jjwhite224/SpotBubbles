@@ -102,7 +102,6 @@ body {
 }
 
 .chart-container {
-  display: flex;
   justify-content: center; /* Ensures proper centering */
   align-items: center;
   width: 100%;
