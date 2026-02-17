@@ -1,4 +1,4 @@
-const CLIENT_ID = "90e3a7713c3142d082781504fb981430";
+const CLIENT_ID = "2892203726614a98b52e8fd501fb5387";
 const REDIRECT_URI = "https://jjwhite224.github.io/SpotBubbles/";
 const SCOPES = ["user-top-read",  "streaming", // Required for Web Playback SDK
     "user-read-email",
@@ -54,3 +54,4 @@ export const getAccessToken = () => {
 
 // Call on page load to check token status
 storeAccessToken();
+
