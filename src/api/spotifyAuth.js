@@ -17,6 +17,18 @@ const generateCodeVerifier = () => {
     .replace(/\+/g, "-")
     .replace(/\//g, "_")
     .replace(/=+$/, "");
+export const getAuthUrl = () => {
+    const authEndpoint = "https://accounts.spotify.com/authorize";
+    return `${authEndpoint}?client_id=${CLIENT_ID}&response_type=token&redirect_uri=${encodeURIComponent(
+     REDIRECT_URI
+    )}&scope=${SCOPES.join("%20")}&show_dialog=true`;
+    // Log the URL being generated
+  };
+// Extracts token from URL hash
+export const getAccessTokenFromUrl = () => {
+  const hash = window.location.hash.substring(1);
+  const params = new URLSearchParams(hash);
+  return params.get("access_token");
 };
 
 const generateCodeChallenge = async (codeVerifier) => {
