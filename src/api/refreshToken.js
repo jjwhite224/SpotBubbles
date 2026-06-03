@@ -1,4 +1,6 @@
-const BACKEND_URL = "https://spotbubbles.onrender.com";
+const BACKEND_URL = (typeof window !== 'undefined' && window.location && window.location.hostname && window.location.hostname.includes('localhost'))
+  ? 'http://localhost:3000'
+  : 'https://spotbubbles.onrender.com';
 
 export const refreshAccessToken = async () => {
   const refreshToken = localStorage.getItem("spotify_refresh_token");

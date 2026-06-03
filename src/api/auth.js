@@ -1,6 +1,33 @@
-const CLIENT_ID = "4538b1c9bbc84a708b45046da5612f9c"; // Your Client ID
-const REDIRECT_URI = "https://jjwhite224.github.io/SpotBubbles/"; // Update this to match your app's URL
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID || "4538b1c9bbc84a708b45046da5612f9c";
 const SCOPES = ["user-read-recently-played"]; // Add required scopes
+
+const getClientRedirectUri = () => {
+  if (typeof window === 'undefined') return process.env.REACT_APP_REDIRECT_URI || "https://jjwhite224.github.io/SpotBubbles";
+  if (process.env.REACT_APP_REDIRECT_URI) return process.env.REACT_APP_REDIRECT_URI;
+  const origin = window.location.origin;
+  const path = window.location.pathname || '/';
+  const cleanPath = path.split('?')[0].split('#')[0].replace(/\/\/$/, '');
+  return `${origin}${cleanPath}`;
+};
+
+const REDIRECT_URI = getClientRedirectUri();
+
+const encodeStateValue = (value) => {
+  const json = JSON.stringify(value);
+  const base64 = btoa(json);
+  return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+};
+
+const decodeStateValue = (value) => {
+  try {
+    const normalized = value.replace(/-/g, '+').replace(/_/g, '/');
+    const padded = normalized.padEnd(normalized.length + (4 - (normalized.length % 4)) % 4, '=');
+    const json = atob(padded);
+    return JSON.parse(json);
+  } catch {
+    return null;
+  }
+};
 
 // Generates a random code verifier (for PKCE)
 const generateCodeVerifier = () => {
@@ -10,6 +37,12 @@ const generateCodeVerifier = () => {
     .replace(/\+/g, "-")
     .replace(/\//g, "_")
     .replace(/=+$/, "");
+};
+
+const generateState = () => {
+  const array = new Uint8Array(16);
+  window.crypto.getRandomValues(array);
+  return Array.from(array, (b) => b.toString(16).padStart(2, '0')).join('');
 };
 
 // Hashes the code verifier to generate a code challenge
@@ -27,12 +60,16 @@ const generateCodeChallenge = async (codeVerifier) => {
 export const redirectToSpotifyAuth = async () => {
   const codeVerifier = generateCodeVerifier();
   const codeChallenge = await generateCodeChallenge(codeVerifier);
+  const rawState = generateState();
+  const state = encodeStateValue({ state: rawState, codeVerifier });
 
   localStorage.setItem("spotify_code_verifier", codeVerifier); // Save code verifier
+  localStorage.setItem("spotify_auth_state", rawState);
 
   const authUrl = `https://accounts.spotify.com/authorize?` +
     `client_id=${CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
-    `&scope=${SCOPES.join("%20")}&code_challenge_method=S256&code_challenge=${codeChallenge}`;
+    `&scope=${SCOPES.join("%20")}&code_challenge_method=S256&code_challenge=${codeChallenge}` +
+    `&state=${encodeURIComponent(state)}`;
 
   window.location.href = authUrl; // Redirect to Spotify login
 };
