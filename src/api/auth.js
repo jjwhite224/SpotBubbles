@@ -2,11 +2,20 @@ const CLIENT_ID = process.env.REACT_APP_CLIENT_ID || "4538b1c9bbc84a708b45046da5
 const SCOPES = ["user-read-recently-played"]; // Add required scopes
 
 const getClientRedirectUri = () => {
-  if (typeof window === 'undefined') return process.env.REACT_APP_REDIRECT_URI || "https://jjwhite224.github.io/SpotBubbles";
-  if (process.env.REACT_APP_REDIRECT_URI) return process.env.REACT_APP_REDIRECT_URI;
+  if (typeof window === 'undefined') return process.env.REACT_APP_REDIRECT_URI || "https://jjwhite224.github.io/SpotBubbles/#";
   const origin = window.location.origin;
   const path = window.location.pathname || '/';
   const cleanPath = path.split('?')[0].split('#')[0].replace(/\/\/$/, '');
+
+  if (origin.includes("localhost")) {
+    return process.env.REACT_APP_REDIRECT_URI || `${origin}${cleanPath}`;
+  }
+
+  if (origin.includes("jjwhite224.github.io")) {
+    const hashPath = cleanPath.endsWith("/") ? `${cleanPath}#` : `${cleanPath}/#`;
+    return `${origin}${hashPath}`;
+  }
+
   return `${origin}${cleanPath}`;
 };
 
@@ -65,6 +74,7 @@ export const redirectToSpotifyAuth = async () => {
 
   localStorage.setItem("spotify_code_verifier", codeVerifier); // Save code verifier
   localStorage.setItem("spotify_auth_state", rawState);
+  localStorage.setItem("spotify_redirect_uri", REDIRECT_URI);
 
   const authUrl = `https://accounts.spotify.com/authorize?` +
     `client_id=${CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +

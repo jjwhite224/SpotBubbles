@@ -20,19 +20,35 @@ app.listen(PORT, () => {
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = process.env.REDIRECT_URI || "https://jjwhite224.github.io/SpotBubbles/"; // Ensure this matches frontend or set in .env for local testing
-console.log(`[server] REDIRECT_URI=${REDIRECT_URI}`);
+const REDIRECT_URI = process.env.REDIRECT_URI || "https://jjwhite224.github.io/SpotBubbles/#"; // Ensure this matches frontend or set in .env for local testing
+const ALLOWED_REDIRECT_URIS = [
+  REDIRECT_URI,
+  "https://spotbubbles.onrender.com",
+  "https://jjwhite224.github.io/SpotBubbles/#",
+  "https://jjwhite224.github.io/SpotBubbles",
+].filter(Boolean);
+
+const getRedirectUri = (uri) => {
+  if (uri && ALLOWED_REDIRECT_URIS.includes(uri)) return uri;
+  return REDIRECT_URI;
+};
+
+console.log(`[server] default REDIRECT_URI=${REDIRECT_URI}`);
+console.log(`[server] allowed redirect URIs=${ALLOWED_REDIRECT_URIS.join(', ')}`);
 
 app.post("/exchange-token", async (req, res) => {
-  const { authCode, codeVerifier } = req.body;
+  const { authCode, codeVerifier, redirectUri } = req.body;
   console.log('[/exchange-token] Received body:', req.body);
+
+  const tokenRedirectUri = getRedirectUri(redirectUri);
+  console.log(`[server] using redirect_uri=${tokenRedirectUri}`);
 
   const params = new URLSearchParams();
   params.append("client_id", CLIENT_ID);
   params.append("client_secret", CLIENT_SECRET);
   params.append("grant_type", "authorization_code");
   params.append("code", authCode);
-  params.append("redirect_uri", REDIRECT_URI);
+  params.append("redirect_uri", tokenRedirectUri);
   params.append("code_verifier", codeVerifier);
 
   try {

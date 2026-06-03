@@ -63,7 +63,11 @@ const exchangeCodeForToken = async () => {
     const response = await fetch(`${BACKEND_URL}/exchange-token`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ authCode, codeVerifier }),
+      body: JSON.stringify({
+        authCode,
+        codeVerifier,
+        redirectUri: localStorage.getItem("spotify_redirect_uri") || `${window.location.origin}${window.location.pathname}${window.location.hash}`,
+      }),
     });
 
     const data = await response.json();
