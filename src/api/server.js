@@ -18,18 +18,30 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_ID = process.env.CLIENT_ID || process.env.REACT_APP_CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = process.env.REDIRECT_URI || "https://jjwhite224.github.io/SpotBubbles/#"; // Ensure this matches frontend or set in .env for local testing
+const REDIRECT_URI = process.env.REDIRECT_URI || "https://jjwhite224.github.io/SpotBubbles/"; // Ensure this matches frontend or set in .env for local testing
+if (!CLIENT_ID) console.warn('[server] WARNING: CLIENT_ID is not set');
+if (!CLIENT_SECRET) console.warn('[server] WARNING: CLIENT_SECRET is not set');
 const ALLOWED_REDIRECT_URIS = [
   REDIRECT_URI,
-  "https://spotbubbles.onrender.com",
-  "https://jjwhite224.github.io/SpotBubbles/#",
   "https://jjwhite224.github.io/SpotBubbles",
+  "https://jjwhite224.github.io/SpotBubbles/#",
+  "https://jjwhite224.github.io/SpotBubbles/",
+  "https://spotbubbles.onrender.com",
+  "https://spotbubbles.onrender.com/",
+  "https://spotbubbles.onrender.com/#",
 ].filter(Boolean);
 
+const normalizeRedirectUri = (uri) => {
+  if (!uri) return "";
+  return uri.replace(/[#\/]+$/, '');
+};
+
+const allowedNormalizedUris = new Set(ALLOWED_REDIRECT_URIS.map(normalizeRedirectUri));
+
 const getRedirectUri = (uri) => {
-  if (uri && ALLOWED_REDIRECT_URIS.includes(uri)) return uri;
+  if (uri && allowedNormalizedUris.has(normalizeRedirectUri(uri))) return uri;
   return REDIRECT_URI;
 };
 

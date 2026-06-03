@@ -2,13 +2,14 @@ const CLIENT_ID = process.env.REACT_APP_CLIENT_ID || "4538b1c9bbc84a708b45046da5
 const SCOPES = ["user-read-recently-played"]; // Add required scopes
 
 const getClientRedirectUri = () => {
-  if (typeof window === 'undefined') return process.env.REACT_APP_REDIRECT_URI || "https://jjwhite224.github.io/SpotBubbles/#";
+  if (process.env.REACT_APP_REDIRECT_URI) return process.env.REACT_APP_REDIRECT_URI;
+  if (typeof window === 'undefined') return "https://jjwhite224.github.io/SpotBubbles/#";
   const origin = window.location.origin;
   const path = window.location.pathname || '/';
   const cleanPath = path.split('?')[0].split('#')[0].replace(/\/\/$/, '');
 
   if (origin.includes("localhost")) {
-    return process.env.REACT_APP_REDIRECT_URI || `${origin}${cleanPath}`;
+    return `${origin}${cleanPath}`;
   }
 
   if (origin.includes("jjwhite224.github.io")) {

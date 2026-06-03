@@ -1,6 +1,9 @@
-const BACKEND_URL = (typeof window !== 'undefined' && window.location && window.location.hostname && window.location.hostname.includes('localhost'))
-  ? 'http://localhost:3000'
-  : 'https://spotbubbles.onrender.com'; // Your backend server URL
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL ||
+  ((typeof window !== 'undefined' && window.location && window.location.hostname && window.location.hostname.includes('localhost'))
+    ? 'http://localhost:3000'
+    : 'https://spotbubbles.onrender.com'); // Your backend server URL
+
+console.log(`[callback] BACKEND_URL=${BACKEND_URL}`);
 
 const decodeStateValue = (value) => {
   try {
@@ -71,7 +74,13 @@ const exchangeCodeForToken = async () => {
     });
 
     const data = await response.json();
-    console.log('[callback] exchange response:', data);
+    console.log('[callback] exchange response:', data, 'status:', response.status);
+
+    if (!response.ok) {
+      console.error('[callback] token exchange failed', data);
+      return;
+    }
+
     if (data.access_token) {
       localStorage.setItem("spotify_access_token", data.access_token);
       localStorage.setItem("spotify_refresh_token", data.refresh_token);

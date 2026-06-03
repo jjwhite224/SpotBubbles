@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAccessToken } from "./api/spotifyAuth";
 import { redirectToSpotifyAuth } from "./api/auth";
 import "./api/callback";
-import { refreshAccessToken } from "./api/refsetreshToken";
+import { refreshAccessToken } from "./api/refreshToken";
 import { fetchSpotifyData } from "./api/spotify";
 import SpotifyChart from "./components/SpotifyChart";
 import "./App.css"; // Import the CSS file
